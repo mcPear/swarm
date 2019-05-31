@@ -1,14 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D  # keep it
+from pso import Particle
 
 
 class Animation:
 
-    def init(self, optim_func):
-        X = np.linspace(-6, 6, 100)
-        Y = np.linspace(-6, 6, 100)
+    def init(self, optim_func, x, z):
+        X = np.linspace(-x, x, z)
+        Y = np.linspace(-x, x, z)
         X, Y = np.meshgrid(X, Y)
         Z = optim_func(X, Y)
         plt.ion()
@@ -24,12 +25,17 @@ class Animation:
     def update(self, swarm):
 
         for line in self.lines:
-            l = line.pop(0)
-            l.remove()
-            del l
+            if line:
+                l = line.pop(0)
+                l.remove()
+                del l
 
         for warm in swarm:
-            x, y = warm
+            if isinstance(warm, Particle):
+                x = warm.x
+                y = warm.y
+            else:
+                x, y = warm
             x = [x, x]
             y = [y, y]
             z = [0, 100]

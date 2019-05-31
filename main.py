@@ -1,14 +1,15 @@
 from animation import Animation
 from functions import rastrigin_func
 import time
+from pso import pso
 
+x = 20
+z = 100
 anim = Animation()
-anim.init(rastrigin_func)
+anim.init(rastrigin_func, x, z)
 
 # --some-computation--
-anim.update([[1, 2], [0, 3]])
-time.sleep(0.5)
-anim.update([[0, 1], [1, 4]])
+pso(anim.update, x)
 # --end-of-some-computation--
 
 anim.fix()
