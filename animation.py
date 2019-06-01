@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D  # keep it
-from pso import Particle
+
+from optimization.base_particle import BaseParticle
 
 
 class Animation:
@@ -30,12 +31,12 @@ class Animation:
                 l.remove()
                 del l
 
-        for warm in swarm:
-            if isinstance(warm, Particle):
-                x = warm.x
-                y = warm.y
+        for particle in swarm:
+            if isinstance(particle, BaseParticle):
+                x = particle.x
+                y = particle.y
             else:
-                x, y = warm
+                x, y = particle
             x = [x, x]
             y = [y, y]
             z = [0, 100]
