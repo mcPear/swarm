@@ -2,6 +2,7 @@ from animation import Animation
 from functions import rastrigin_func
 from optimization.eba import EBA
 from optimization.pso import PSO
+from optimization.abc import ABC
 
 x = 20
 z = 100
@@ -12,7 +13,7 @@ anim.init(rastrigin_func, x, z)
 # pso = PSO(anim.update)
 # pso.optimize(x)
 
-ba = EBA(anim.update)
+ba = ABC(anim.update)
 ba.optimize(x)
 # --end-of-some-computation--
 

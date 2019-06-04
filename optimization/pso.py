@@ -24,10 +24,10 @@ class PSO(Optimizer):
         while True:
             self.animator(self.swarm)
             for particle in self.swarm:
-                particle.v_x = self.w * particle.v_x + self.wp * self.rp() * (particle.best_x - particle.x) + \
-                               self.wg * self.rg() * (self.optimum[0] - particle.x)
-                particle.v_y = self.w * particle.v_y + self.wp * self.rp() * (particle.best_y - particle.y) + \
-                               self.wg * self.rg() * (self.optimum[1] - particle.y)
+                particle.v_x = self.w * particle.v_x + self.wp * self.rand() * (particle.best_x - particle.x) + \
+                               self.wg * self.rand() * (self.optimum[0] - particle.x)
+                particle.v_y = self.w * particle.v_y + self.wp * self.rand() * (particle.best_y - particle.y) + \
+                               self.wg * self.rand() * (self.optimum[1] - particle.y)
 
                 particle.x += particle.v_x
                 particle.y += particle.v_y
