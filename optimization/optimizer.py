@@ -18,7 +18,7 @@ class Optimizer:
     #        update the swarm's best known  position: g ← pi
     #    Initialize the particle's velocity: vi ~ U(-|bup-blo|, |bup-blo|)
     def init(self, particle_constructor, swarm_size, fun):
-        self.init_any_swarm(self.swarm)
+        self.init_any_swarm(self.swarm, particle_constructor, swarm_size, fun)
 
     def init_any_swarm(self, swarm, particle_constructor, swarm_size, fun):
         for _ in range(swarm_size):

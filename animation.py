@@ -14,7 +14,7 @@ class Animation:
         X, Y = np.meshgrid(X, Y)
         Z = optim_func(X, Y)
         plt.ion()
-        self.fig = plt.figure()
+        self.fig = plt.figure(figsize=(10, 10))
         self.ax = self.fig.gca(projection='3d')
         self.ax.view_init(80, 30)
         self.ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.nipy_spectral, linewidth=0.08, antialiased=True)

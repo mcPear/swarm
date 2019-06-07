@@ -10,11 +10,14 @@ anim = Animation()
 anim.init(rastrigin_func, x, z)
 
 # --some-computation--
-# pso = PSO(anim.update)
+pso = PSO(anim.update)
 # pso.optimize(x)
 
-ba = ABC(anim.update)
-ba.optimize(x)
+abc = ABC(anim.update)
+# ba.optimize(x)
+
+eba = EBA(anim.update)
+eba.optimize(x)
 # --end-of-some-computation--
 
 anim.fix()

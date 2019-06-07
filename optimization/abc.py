@@ -65,3 +65,4 @@ class ABC(Optimizer):
         z = bee.get_z(fun)
         if z < self.optimum[2]:
             self.optimum = (bee.x, bee.y, z)
+            print(z)

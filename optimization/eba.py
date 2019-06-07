@@ -12,7 +12,7 @@ from optimization.optimizer import Optimizer
 class EBA(Optimizer):
     def __init__(self, animator):
         super().__init__(animator)
-        self.v = 0.17
+        self.v = 0.17 * 10
         self.r = 0.5
         self.beta = lambda: random.uniform(0, 1)
         self.delta_T = lambda: random.uniform(-1, 1)
@@ -35,3 +35,4 @@ class EBA(Optimizer):
                 curr_z = fun(particle.x, particle.y)
                 if curr_z < self.optimum[2]:
                     self.optimum = (particle.x, particle.y, curr_z)
+                    print(curr_z)

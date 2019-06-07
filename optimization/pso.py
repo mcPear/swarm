@@ -38,3 +38,4 @@ class PSO(Optimizer):
                     particle.best_y = particle.y
                     if curr_z < self.optimum[2]:
                         self.optimum = (particle.x, particle.y, curr_z)
+                        print(curr_z)
