@@ -15,8 +15,8 @@ from optimization.optimizer import Optimizer
 # a - greater 'a' means larger neighbourhood, works like learning rate
 # trials - limit of iterations without finding new optimum for single bee
 class ABC(Optimizer):
-    def __init__(self, animator, a=3, trials=10):
-        super().__init__(animator)
+    def __init__(self, animator=None, a=3, trials=10, stop_func=lambda i: True):
+        super().__init__(animator, stop_func)
         self.employers = []
         self.outlookers = []
         self.a = a
@@ -25,8 +25,11 @@ class ABC(Optimizer):
     def optimize(self, start_pos_range, sources_count=20, fun=rastrigin_func):
         self.init_any_swarm(self.employers, lambda: EmployerBee(start_pos_range), sources_count, fun)
         self.init_any_swarm(self.outlookers, lambda: EmployerBee(start_pos_range), sources_count, fun)
-        while True:
-            self.animator(self.employers + self.outlookers)
+        results = []
+        iteration = 0
+        while self.stop_func(iteration):
+            iteration += 1
+            self.animate()
             # send employers
             for i in range(len(self.employers)):
                 self.employers[i] = self.find_better_neighbour_food_source(self.employers[i], start_pos_range, fun)
@@ -44,6 +47,9 @@ class ABC(Optimizer):
                 if self.employers[i].trials >= self.trials:
                     self.employers[i] = EmployerBee(start_pos_range)
                 self.update_optimum(self.employers[i], fun)
+
+            results.append(self.optimum[2])
+        return results
 
     def find_better_neighbour_food_source(self, employer_bee, p, fun):
         x, y = employer_bee.x, employer_bee.y

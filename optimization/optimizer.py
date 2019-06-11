@@ -3,13 +3,14 @@ import random
 
 class Optimizer:
 
-    def __init__(self, animator):
+    def __init__(self, animator, stop_func):
         super().__init__()
         self.optimum = (None, None, 999999)
         # TODO check if rand from [0,1] is ok, was [0, 1)
         self.rand = lambda: random.uniform(0, 1)
         self.swarm = []
         self.animator = animator
+        self.stop_func = stop_func
 
     # for each particle i = 1, ..., S do
     #    Initialize the particle's position with a uniformly distributed random vector: xi ~ U(blo, bup)
@@ -27,3 +28,7 @@ class Optimizer:
             z = fun(particle.x, particle.y)
             if z < self.optimum[2]:
                 self.optimum = (particle.x, particle.y, z)
+
+    def animate(self):
+        if self.animator is not None:
+            self.animator(self.swarm)

@@ -10,9 +10,9 @@ from optimization.optimizer import Optimizer
 # D - echolocation distance
 # https://www.researchgate.net/publication/258478684_Bat_Algorithm_Inspired_Algorithm_for_Solving_Numerical_Optimization_Problems
 class EBA(Optimizer):
-    def __init__(self, animator):
-        super().__init__(animator)
-        self.v = 0.17 * 10
+    def __init__(self, animator=None, stop_func=lambda i: True):
+        super().__init__(animator, stop_func)
+        self.v = 0.17 * 5
         self.r = 0.5
         self.beta = lambda: random.uniform(0, 1)
         self.delta_T = lambda: random.uniform(-1, 1)
@@ -20,8 +20,11 @@ class EBA(Optimizer):
 
     def optimize(self, start_pos_range, swarm_size=20, fun=rastrigin_func):
         self.init(lambda: BaseParticle(start_pos_range), swarm_size, fun)
-        while True:
-            self.animator(self.swarm)
+        results = []
+        i = 0
+        while self.stop_func(i):
+            i += 1
+            self.animate()
             for particle in self.swarm:
                 # normal walk
                 particle.x += self.D()
@@ -36,3 +39,5 @@ class EBA(Optimizer):
                 if curr_z < self.optimum[2]:
                     self.optimum = (particle.x, particle.y, curr_z)
                     print(curr_z)
+            results.append(self.optimum[2])
+        return results

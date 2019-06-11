@@ -4,7 +4,7 @@ from optimization.eba import EBA
 from optimization.pso import PSO
 from optimization.abc import ABC
 
-x = 20
+x = 5
 z = 100
 anim = Animation()
 anim.init(rastrigin_func, x, z)
@@ -14,10 +14,10 @@ pso = PSO(anim.update)
 # pso.optimize(x)
 
 abc = ABC(anim.update)
-# ba.optimize(x)
+abc.optimize(x)
 
 eba = EBA(anim.update)
-eba.optimize(x)
+# eba.optimize(x)
 # --end-of-some-computation--
 
 anim.fix()

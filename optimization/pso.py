@@ -5,8 +5,8 @@ from optimization.particle import Particle
 
 class PSO(Optimizer):
 
-    def __init__(self, animator, w=0.5):
-        super().__init__(animator)
+    def __init__(self, animator=None, w=0.5, stop_func=lambda i: True):
+        super().__init__(animator, stop_func)
         self.wp = self.wg = self.w = w
 
     # while a termination criterion is not met do:
@@ -21,8 +21,11 @@ class PSO(Optimizer):
     #             Update the swarm's best known position: g ← pi
     def optimize(self, start_pos_range, swarm_size=20, fun=rastrigin_func):
         self.init(lambda: Particle(start_pos_range), swarm_size, fun)
-        while True:
-            self.animator(self.swarm)
+        results = []
+        i = 0
+        while self.stop_func(i):
+            i += 1
+            self.animate()
             for particle in self.swarm:
                 particle.v_x = self.w * particle.v_x + self.wp * self.rand() * (particle.best_x - particle.x) + \
                                self.wg * self.rand() * (self.optimum[0] - particle.x)
@@ -39,3 +42,5 @@ class PSO(Optimizer):
                     if curr_z < self.optimum[2]:
                         self.optimum = (particle.x, particle.y, curr_z)
                         print(curr_z)
+            results.append(self.optimum[2])
+        return results
