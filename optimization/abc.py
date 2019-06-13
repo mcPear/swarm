@@ -22,7 +22,7 @@ class ABC(Optimizer):
         self.a = a
         self.trials = trials
 
-    def optimize(self, fun, start_pos_range, sources_count=20):
+    def optimize(self, fun, start_pos_range, sources_count=10):
         self.init_any_swarm(self.employers, lambda: EmployerBee(start_pos_range), sources_count, fun)
         self.init_any_swarm(self.outlookers, lambda: EmployerBee(start_pos_range), sources_count, fun)
         results = []
