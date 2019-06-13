@@ -4,19 +4,11 @@ from functions import matyas_func, rastrigin_func, levi_func
 from optimization.abc import ABC
 from optimization.eba import EBA
 from optimization.pso import PSO
+from globals import X_RESEARCH, now, time_limit
 import matplotlib.pyplot as plt
-import time
-
-X_RESEARCH = 200
-
-
-def now():
-    return int(round(time.time() * 1000))
 
 
 fun = matyas_func
-iter_count = 10000
-time_limit = 1000
 plt.yscale('log')
 
 x = X_RESEARCH
