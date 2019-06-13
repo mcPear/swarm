@@ -18,7 +18,7 @@ class EBA(Optimizer):
         self.delta_T = lambda: random.uniform(-1, 1)
         self.D = lambda: self.v * self.delta_T() / 2
 
-    def optimize(self, start_pos_range, swarm_size=20, fun=rastrigin_func):
+    def optimize(self, fun, start_pos_range, swarm_size=20):
         self.init(lambda: BaseParticle(start_pos_range), swarm_size, fun)
         results = []
         i = 0

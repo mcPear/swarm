@@ -1,23 +1,25 @@
 from animation import Animation
-from functions import rastrigin_func
+from functions import matyas_func, rastrigin_func, levi_func
 from optimization.eba import EBA
 from optimization.pso import PSO
 from optimization.abc import ABC
 
-x = 5
-z = 100
-anim = Animation()
-anim.init(rastrigin_func, x, z)
+X_RESEARCH = 20
+X_ANIM = 5
 
-# --some-computation--
+x = X_RESEARCH
+z = 100
+fun = levi_func
+anim = Animation()
+anim.init(fun, x, z)
+
 pso = PSO(anim.update)
-# pso.optimize(x)
+# pso.optimize(fun, x)
 
 abc = ABC(anim.update)
-abc.optimize(x)
+abc.optimize(fun, x, sources_count=50)
 
 eba = EBA(anim.update)
-# eba.optimize(x)
-# --end-of-some-computation--
+# eba.optimize(fun, x)
 
 anim.fix()

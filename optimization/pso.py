@@ -19,7 +19,7 @@ class PSO(Optimizer):
     #          Update the particle's best known position: pi ← xi
     #          if f(pi) < f(g) then
     #             Update the swarm's best known position: g ← pi
-    def optimize(self, start_pos_range, swarm_size=20, fun=rastrigin_func):
+    def optimize(self, fun, start_pos_range, swarm_size=20):
         self.init(lambda: Particle(start_pos_range), swarm_size, fun)
         results = []
         i = 0

@@ -22,7 +22,7 @@ class ABC(Optimizer):
         self.a = a
         self.trials = trials
 
-    def optimize(self, start_pos_range, sources_count=20, fun=rastrigin_func):
+    def optimize(self, fun, start_pos_range, sources_count=20):
         self.init_any_swarm(self.employers, lambda: EmployerBee(start_pos_range), sources_count, fun)
         self.init_any_swarm(self.outlookers, lambda: EmployerBee(start_pos_range), sources_count, fun)
         results = []
@@ -72,3 +72,7 @@ class ABC(Optimizer):
         if z < self.optimum[2]:
             self.optimum = (bee.x, bee.y, z)
             print(z)
+
+    def animate(self):
+        if self.animator is not None:
+            self.animator(self.employers + self.outlookers)
